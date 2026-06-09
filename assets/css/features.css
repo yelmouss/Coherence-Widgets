@@ -1,0 +1,180 @@
+/* =========================================
+   COHERENCE FEATURES GRID WIDGET STYLES
+   ========================================= */
+
+.coherence-features-grid {
+    display: grid;
+    gap: 30px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.coherence-features-cols-1 { grid-template-columns: 1fr; }
+.coherence-features-cols-2 { grid-template-columns: repeat(2, 1fr); }
+.coherence-features-cols-3 { grid-template-columns: repeat(3, 1fr); }
+.coherence-features-cols-4 { grid-template-columns: repeat(4, 1fr); }
+
+/* --- CARD STRUCTURE --- */
+.coherence-features-card {
+    position: relative;
+    padding: 35px;
+    box-sizing: border-box;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    display: flex;
+    flex-direction: column;
+    text-decoration: none; /* In case it's a link */
+    overflow: hidden;
+}
+
+/* Card Themes */
+.coherence-features-theme-classic {
+    background-color: #ffffff;
+    border: 1px solid #f0f0f0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+}
+
+.coherence-features-theme-glass {
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+}
+
+.coherence-features-theme-border {
+    background-color: transparent;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+/* Accent Line Pseudo-element for top border expansion */
+.coherence-features-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: #007BFF;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+    z-index: 5;
+}
+
+/* --- CARD HOVER EFFECTS --- */
+
+/* 3D elevation */
+.coherence-features-hover-translate3d:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.08);
+}
+.coherence-features-hover-translate3d:hover::before {
+    transform: scaleX(1);
+}
+
+/* Zoom */
+.coherence-features-hover-zoom:hover {
+    transform: scale(1.03);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
+}
+
+/* Border grow only */
+.coherence-features-hover-border-grow:hover::before {
+    transform: scaleX(1);
+}
+
+/* --- BADGE STYLES --- */
+.coherence-features-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    padding: 4px 10px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-radius: 4px;
+    background-color: #ffc107;
+    color: #111111;
+    letter-spacing: 0.5px;
+}
+
+/* --- ICON BOX --- */
+.coherence-features-icon-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 123, 255, 0.08);
+    margin-bottom: 25px;
+    transition: all 0.3s ease;
+}
+
+.coherence-features-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: #007BFF;
+    transition: all 0.3s ease;
+}
+
+.coherence-features-icon svg {
+    fill: currentColor;
+}
+
+/* --- ICON HOVER ANIMATIONS --- */
+
+/* Rotate */
+.coherence-features-card:hover .coherence-features-icon-hover-rotate .coherence-features-icon {
+    transform: rotate(360deg);
+}
+
+/* Scale */
+.coherence-features-card:hover .coherence-features-icon-hover-scale .coherence-features-icon {
+    transform: scale(1.2);
+}
+
+/* Bounce */
+.coherence-features-card:hover .coherence-features-icon-hover-bounce .coherence-features-icon {
+    animation: coherence-icon-bounce 0.6s ease;
+}
+
+@keyframes coherence-icon-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+/* --- TEXT CONTENT --- */
+.coherence-features-title {
+    margin: 0 0 12px 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: #1f2937;
+    line-height: 1.3;
+}
+
+.coherence-features-description {
+    margin: 0;
+    font-size: 14px;
+    color: #4b5563;
+    line-height: 1.6;
+}
+
+/* --- RESPONSIVENESS --- */
+@media (max-width: 1024px) {
+    .coherence-features-cols-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .coherence-features-cols-3 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .coherence-features-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    .coherence-features-card {
+        padding: 25px;
+    }
+}

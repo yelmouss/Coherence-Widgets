@@ -1,0 +1,15 @@
+/* -------------------------------------------------
+   Coherence Widgets – Editor branding
+   ------------------------------------------------- */
+
+/* Show logo for widgets in the custom "Coherence" category */
+.elementor-panel .elementor-element[data-element_type^="coherence_"] > .elementor-element-title::before,
+.elementor-panel .elementor-element[data-element_type*="coherence"] > .elementor-element-title::before {
+    content: "";
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 6px;
+    background: url("../img/coherence_logo.png") no-repeat center / contain;
+    vertical-align: middle;
+}

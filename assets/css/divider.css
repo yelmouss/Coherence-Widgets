@@ -1,0 +1,110 @@
+/* =========================================
+   COHERENCE CREATIVE DIVIDER STYLES
+   ========================================= */
+
+.coherence-divider-wrapper {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.coherence-divider-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.coherence-divider-line {
+    flex-grow: 1;
+    height: 2px;
+    background-color: #e5e7eb;
+    transition: all 0.3s ease;
+}
+
+/* --- LINE STYLE VARIATIONS --- */
+
+.coherence-divider-style-dashed .coherence-divider-line {
+    background: none !important;
+    border-top-style: dashed;
+    border-top-width: inherit; /* Inherits thickness height */
+    border-top-color: currentColor;
+    height: 0 !important;
+}
+
+.coherence-divider-style-dotted .coherence-divider-line {
+    background: none !important;
+    border-top-style: dotted;
+    border-top-width: inherit; /* Inherits thickness height */
+    border-top-color: currentColor;
+    height: 0 !important;
+}
+
+/* Inherit thickness border sizing inside dashed/dotted */
+.coherence-divider-style-dashed .coherence-divider-line-left,
+.coherence-divider-style-dashed .coherence-divider-line-right,
+.coherence-divider-style-dotted .coherence-divider-line-left,
+.coherence-divider-style-dotted .coherence-divider-line-right {
+    border-top-color: #cbd5e1;
+}
+
+/* --- CENTER ORNAMENT --- */
+
+.coherence-divider-ornament {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 0 20px;
+    z-index: 5;
+}
+
+.coherence-divider-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.5s ease;
+}
+
+.coherence-divider-icon svg {
+    fill: currentColor;
+}
+
+.coherence-divider-text {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+/* Badge (Pill) Ornament Wrapper style */
+.coherence-divider-badge-enabled .coherence-divider-badge {
+    padding: 8px 22px;
+    border-radius: 50px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    background-color: #007BFF;
+    border: 1px solid #007BFF;
+}
+
+/* --- ORNAMENT ANIMATIONS --- */
+
+/* Pulse Glow */
+.coherence-divider-anim-pulse {
+    animation: coherence-divider-pulse-animation 2s infinite;
+}
+
+@keyframes coherence-divider-pulse-animation {
+    0% {
+        box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.5);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(0, 123, 255, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+    }
+}
+
+/* Rotate Icon on Divider Hover */
+.coherence-divider-wrapper:hover .coherence-divider-anim-rotate .coherence-divider-icon {
+    transform: rotate(360deg);
+}

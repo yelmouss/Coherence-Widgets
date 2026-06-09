@@ -1,0 +1,348 @@
+/* =========================================
+   COHERENCE PRICING TABLE WIDGET STYLES
+   ========================================= */
+
+.coherence-pricing-card {
+    position: relative;
+    padding: 40px;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* --- THEME VARIATIONS --- */
+
+/* Classic / Solid Background */
+.coherence-pricing-theme-classic {
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+}
+
+/* Glassmorphism (Verre Dépoli) */
+.coherence-pricing-theme-glass {
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.06);
+}
+
+/* Dark-mode compatibility if container is dark */
+.coherence-pricing-theme-glass.coherence-dark-mode {
+    background: rgba(17, 24, 39, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* --- HOVER ANIMATIONS --- */
+
+.coherence-pricing-hover-translate:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.coherence-pricing-hover-zoom:hover {
+    transform: scale(1.03);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+}
+
+.coherence-pricing-hover-glow:hover {
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.4), 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* --- BADGE STYLES --- */
+
+.coherence-pricing-badge {
+    position: absolute;
+    top: -14px;
+    right: 30px;
+    padding: 6px 16px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 50px;
+    background-color: #007BFF;
+    color: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+    z-index: 10;
+}
+
+/* Pulse Animation */
+.coherence-badge-pulse {
+    animation: coherence-badge-pulse-animation 2s infinite;
+}
+
+@keyframes coherence-badge-pulse-animation {
+    0% {
+        box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.6);
+    }
+    70% {
+        box-shadow: 0 0 0 8px rgba(0, 123, 255, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+    }
+}
+
+/* --- HEADER SECTION --- */
+
+.coherence-pricing-header {
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.coherence-pricing-title {
+    margin: 0 0 10px 0;
+    font-size: 24px;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.coherence-pricing-desc {
+    margin: 0;
+    font-size: 14px;
+    color: #6b7280;
+    line-height: 1.5;
+}
+
+/* --- TOGGLE SWITCH --- */
+
+.coherence-pricing-toggle-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #4b5563;
+    gap: 12px;
+}
+
+.coherence-pricing-toggle-label {
+    transition: color 0.3s ease;
+    cursor: pointer;
+}
+
+.coherence-pricing-switch {
+    position: relative;
+    width: 48px;
+    height: 26px;
+}
+
+.coherence-pricing-switch-input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.coherence-pricing-switch-label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #cbd5e1;
+    border-radius: 34px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.coherence-pricing-switch-label::before {
+    content: '';
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.coherence-pricing-switch-input:checked + .coherence-pricing-switch-label {
+    background-color: #007BFF;
+}
+
+.coherence-pricing-switch-input:checked + .coherence-pricing-switch-label::before {
+    transform: translateX(22px);
+}
+
+/* Highlight active switch label */
+.coherence-pricing-card:not(.coherence-pricing-yearly-active) .coherence-pricing-label-mo {
+    color: #111827;
+}
+
+.coherence-pricing-yearly-active .coherence-pricing-label-yr {
+    color: #111827;
+}
+
+/* --- PRICE DISPLAY --- */
+
+.coherence-pricing-price-box {
+    margin-bottom: 30px;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.coherence-pricing-val {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+}
+
+.coherence-pricing-currency {
+    font-size: 24px;
+    font-weight: 700;
+    color: #111827;
+    align-self: flex-start;
+    margin-top: 4px;
+    margin-right: 2px;
+}
+
+.coherence-pricing-num {
+    font-size: 54px;
+    font-weight: 800;
+    color: #111827;
+    line-height: 1;
+    letter-spacing: -2px;
+}
+
+.coherence-pricing-period {
+    font-size: 15px;
+    color: #6b7280;
+    margin-left: 4px;
+}
+
+.coherence-pricing-billing-info {
+    margin-top: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #888888;
+}
+
+/* --- DIVIDER --- */
+
+.coherence-pricing-divider {
+    height: 1px;
+    background-color: #e5e7eb;
+    margin-bottom: 30px;
+}
+
+.coherence-pricing-theme-glass .coherence-pricing-divider {
+    background-color: rgba(255, 255, 255, 0.25);
+}
+
+/* --- FEATURES LIST --- */
+
+.coherence-pricing-features-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 35px 0;
+    flex-grow: 1;
+}
+
+.coherence-pricing-feature-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    font-size: 15px;
+    color: #374151;
+}
+
+.coherence-pricing-feature-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    font-size: 14px;
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+}
+
+.coherence-pricing-feature-disabled {
+    opacity: 0.5;
+}
+
+.coherence-pricing-feature-disabled .coherence-pricing-feature-text {
+    text-decoration: line-through;
+    color: #9ca3af;
+}
+
+/* --- CTA BUTTON --- */
+
+.coherence-pricing-cta {
+    margin-top: auto;
+}
+
+.coherence-pricing-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    text-decoration: none;
+    width: 100%;
+    font-weight: 700;
+    font-size: 15px;
+    border: none;
+    background-color: #007BFF;
+    color: #ffffff;
+    box-sizing: border-box;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(0, 123, 255, 0.2);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.coherence-pricing-btn:hover {
+    box-shadow: 0 6px 20px rgba(0, 123, 255, 0.35);
+    transform: translateY(-2px);
+}
+
+.coherence-pricing-btn-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+.coherence-btn-icon-left {
+    margin-right: 8px;
+}
+
+.coherence-btn-icon-right {
+    margin-left: 8px;
+}
+
+/* Button Shine Effect */
+.coherence-btn-shine::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.3) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    transform: skewX(-25deg);
+    transition: 0s;
+}
+
+.coherence-pricing-btn:hover.coherence-btn-shine::after {
+    left: 150%;
+    transition: all 0.75s ease;
+}
