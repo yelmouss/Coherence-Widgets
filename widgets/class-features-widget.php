@@ -18,7 +18,7 @@ class Coherence_Features_Widget extends \Elementor\Widget_Base {
     }
 
     public function get_icon() {
-        return 'eicon-grid';
+        return 'eicon-lightbox';
     }
 
     public function get_categories() {
