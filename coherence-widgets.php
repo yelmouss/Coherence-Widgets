@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: Coherence Widgets Bundle
- * Plugin URI: https://coherence.fr
+ * Plugin URI: https://www.agence-coherence.fr/
  * Description: Bibliothèque complète de widgets Elementor personnalisés pour Coherence
  * Version: 1.0.0
  * Author: Coherence Agency
- * Author URI: https://coherence.fr
+ * Author URI: https://www.agence-coherence.fr/
  * License: GPL2
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: coherence-widgets
@@ -21,6 +21,7 @@ define( 'COHERENCE_WIDGETS_VERSION', '1.0.0' );
 define( 'COHERENCE_WIDGETS_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'COHERENCE_WIDGETS_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'COHERENCE_WIDGETS_ASSETS_URL', COHERENCE_WIDGETS_PLUGIN_URL . 'assets/' );
+
 
 /**
  * Vérification de la dépendance Elementor
@@ -53,29 +54,32 @@ add_action( 'plugins_loaded', function() {
 /**
  * Charger les fichiers du plugin
  */
-require_once COHERENCE_WIDGETS_PLUGIN_DIR . 'includes/helpers.php';
+
 
 /**
  * Enregistrer les widgets
  */
 function register_coherence_widgets( $widgets_manager ) {
     $widgets_dir = COHERENCE_WIDGETS_PLUGIN_DIR . 'widgets/';
-    
-    $widget_files = array(
-        'class-before-after-widget.php',
-        'class-testimonial-widget.php',
-        'class-pricing-widget.php',
-        'class-features-widget.php',
-        'class-divider-widget.php',
-        'class-slider-coherence-widget.php',
-        'class-popup-coherence-widget.php',
+
+    // Map: file => class name
+    $widgets = array(
+        'class-before-after-widget.php'     => 'Coherence_Before_After_Widget',
+        'class-testimonial-widget.php'      => 'Coherence_Testimonial_Widget',
+        'class-pricing-widget.php'          => 'Coherence_Pricing_Widget',
+        'class-features-widget.php'         => 'Coherence_Features_Widget',
+        'class-divider-widget.php'          => 'Coherence_Divider_Widget',
+        'class-slider-coherence-widget.php' => 'Coherence_Slider_Widget',
+        'class-popup-coherence-widget.php'  => 'Coherence_Popup_Widget',
     );
 
-    foreach ( $widget_files as $widget_file ) {
-        $widget_path = $widgets_dir . $widget_file;
-        
+    foreach ( $widgets as $file => $class ) {
+        $widget_path = $widgets_dir . $file;
         if ( file_exists( $widget_path ) ) {
             require_once $widget_path;
+            if ( class_exists( $class ) ) {
+                $widgets_manager->register( new $class() );
+            }
         }
     }
 }
@@ -185,6 +189,20 @@ function coherence_widgets_editor_scripts() {
     wp_enqueue_style(
         'coherence-editor',
         COHERENCE_WIDGETS_ASSETS_URL . 'css/editor.css',
+        array(),
+        COHERENCE_WIDGETS_VERSION
+    );
+    // Enqueue popup assets for editor preview
+    wp_enqueue_script(
+        'coherence-popup',
+        COHERENCE_WIDGETS_ASSETS_URL . 'js/coherence-popup.js',
+        array(),
+        COHERENCE_WIDGETS_VERSION,
+        true
+    );
+    wp_enqueue_style(
+        'coherence-popup-style',
+        COHERENCE_WIDGETS_ASSETS_URL . 'css/coherence-popup.css',
         array(),
         COHERENCE_WIDGETS_VERSION
     );

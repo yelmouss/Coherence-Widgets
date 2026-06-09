@@ -280,5 +280,3 @@ class Coherence_Slider_Widget extends \Elementor\Widget_Base {
         <?php
         }
     }
-
-\Elementor\Plugin::instance()->widgets_manager->register( new Coherence_Slider_Widget() );
