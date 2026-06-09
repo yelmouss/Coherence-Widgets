@@ -68,6 +68,7 @@ function register_coherence_widgets( $widgets_manager ) {
         'class-features-widget.php',
         'class-divider-widget.php',
         'class-slider-coherence-widget.php',
+        'class-popup-coherence-widget.php',
     );
 
     foreach ( $widget_files as $widget_file ) {
@@ -155,6 +156,21 @@ function coherence_widgets_enqueue_scripts() {
     wp_register_style(
         'coherence-divider',
         COHERENCE_WIDGETS_ASSETS_URL . 'css/divider.css',
+        array(),
+        COHERENCE_WIDGETS_VERSION
+    );
+
+    wp_register_script(
+        'coherence-popup',
+        COHERENCE_WIDGETS_ASSETS_URL . 'js/coherence-popup.js',
+        array(),
+        COHERENCE_WIDGETS_VERSION,
+        true
+    );
+
+    wp_register_style(
+        'coherence-popup-style',
+        COHERENCE_WIDGETS_ASSETS_URL . 'css/coherence-popup.css',
         array(),
         COHERENCE_WIDGETS_VERSION
     );

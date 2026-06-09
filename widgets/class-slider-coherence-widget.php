@@ -46,6 +46,102 @@ class Coherence_Slider_Widget extends \Elementor\Widget_Base {
                 'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
             )
         );
+        // Slides Repeater
+        $repeater = new \Elementor\Repeater();
+
+        $repeater->add_control(
+            'slide_image',
+            [
+                'label' => esc_html__( 'Image de fond', 'coherence-widgets' ),
+                'type' => \Elementor\Controls_Manager::MEDIA,
+                'default' => [
+                    'url' => \Elementor\Utils::get_placeholder_image_src(),
+                ],
+            ]
+        );
+
+        $repeater->add_control(
+            'slide_title',
+            [
+                'label' => esc_html__( 'Titre', 'coherence-widgets' ),
+                'type' => \Elementor\Controls_Manager::TEXT,
+                'default' => esc_html__( 'Titre du slide', 'coherence-widgets' ),
+            ]
+        );
+
+        $repeater->add_control(
+            'slide_subtitle',
+            [
+                'label' => esc_html__( 'Sous‑titre', 'coherence-widgets' ),
+                'type' => \Elementor\Controls_Manager::TEXTAREA,
+                'default' => esc_html__( 'Description du slide.', 'coherence-widgets' ),
+            ]
+        );
+
+        $repeater->add_control(
+            'slide_button_text',
+            [
+                'label' => esc_html__( 'Texte du bouton', 'coherence-widgets' ),
+                'type' => \Elementor\Controls_Manager::TEXT,
+                'default' => esc_html__( 'En savoir plus', 'coherence-widgets' ),
+            ]
+        );
+
+        $repeater->add_control(
+            'slide_button_link',
+            [
+                'label' => esc_html__( 'Lien du bouton', 'coherence-widgets' ),
+                'type' => \Elementor\Controls_Manager::URL,
+                'placeholder' => esc_html__( 'https://exemple.com', 'coherence-widgets' ),
+                'default' => [
+                    'url' => '#',
+                ],
+            ]
+        );
+
+        $repeater->add_control(
+            'position',
+            [
+                'label' => esc_html__( 'Position du texte', 'coherence-widgets' ),
+                'type' => \Elementor\Controls_Manager::SELECT,
+                'default' => 'center',
+                'options' => [
+                    'left' => esc_html__( 'Gauche', 'coherence-widgets' ),
+                    'center' => esc_html__( 'Centre', 'coherence-widgets' ),
+                    'right' => esc_html__( 'Droite', 'coherence-widgets' ),
+                ],
+            ]
+        );
+
+        $repeater->add_control(
+            'text_color',
+            [
+                'label' => esc_html__( 'Couleur du texte', 'coherence-widgets' ),
+                'type' => \Elementor\Controls_Manager::COLOR,
+                'default' => '#ffffff',
+            ]
+        );
+
+        $repeater->add_control(
+            'bg_color',
+            [
+                'label' => esc_html__( 'Couleur de fond', 'coherence-widgets' ),
+                'type' => \Elementor\Controls_Manager::COLOR,
+                'default' => 'rgba(0,0,0,0.4)',
+            ]
+        );
+
+        $this->add_control(
+            'slides',
+            [
+                'label' => esc_html__( 'Slides', 'coherence-widgets' ),
+                'type' => \Elementor\Controls_Manager::REPEATER,
+                'fields' => $repeater->get_controls(),
+                'default' => [],
+                'title_field' => '{{{ slide_title }}}',
+            ]
+        );
+        // End of Slides Repeater
 
         $this->add_control(
             'bg_image',
@@ -149,28 +245,41 @@ class Coherence_Slider_Widget extends \Elementor\Widget_Base {
         $this->end_controls_section();
     }
 
-    protected function render() {
-        $settings = $this->get_settings_for_display();
-        $bg_url = esc_url( $settings['bg_image']['url'] );
-        $title = esc_html( $settings['title'] );
-        $subtitle = esc_html( $settings['subtitle'] );
-        $button_text = esc_html( $settings['button_text'] );
-        $button_link = esc_url( $settings['button_link']['url'] );
-        $autoplay = $settings['autoplay'] === 'yes';
-        $speed = intval( $settings['autoplay_speed'] );
-        ?>
-        <div class="coherence-slider" data-autoplay="<?php echo $autoplay ? 'true' : 'false'; ?>" data-speed="<?php echo $speed; ?>" style="background-image: url('<?php echo $bg_url; ?>');">
-            <div class="coherence-slider-overlay"></div>
-            <div class="coherence-slider-content">
-                <h2 class="coherence-slider-title"><?php echo $title; ?></h2>
-                <p class="coherence-slider-subtitle"><?php echo $subtitle; ?></p>
-                <?php if ( $button_text && $button_link ) : ?>
-                    <a href="<?php echo $button_link; ?>" class="coherence-slider-btn"><?php echo $button_text; ?></a>
+    <?php
+        protected function render() {
+            $settings = $this->get_settings_for_display();
+            $autoplay = $settings['autoplay'] === 'yes';
+            $speed = intval( $settings['autoplay_speed'] );
+            ?>
+            <div class="coherence-slider" data-autoplay="<?php echo $autoplay ? 'true' : 'false'; ?>" data-speed="<?php echo $speed; ?>">
+                <?php if ( !empty( $settings['slides'] ) ) : ?>
+                    <?php foreach ( $settings['slides'] as $slide ) : ?>
+                        <?php
+                        $bg_url = esc_url( $slide['slide_image']['url'] );
+                        $title = esc_html( $slide['slide_title'] );
+                        $subtitle = esc_html( $slide['slide_subtitle'] );
+                        $button_text = esc_html( $slide['slide_button_text'] );
+                        $button_link = esc_url( $slide['slide_button_link']['url'] );
+                        $position = $slide['position'];
+                        $text_color = $slide['text_color'];
+                        $bg_color = $slide['bg_color'];
+                        ?>
+                        <div class="coherence-slide" style="background-image: url('<?php echo $bg_url; ?>');">
+                            <div class="coherence-slider-overlay" style="background-color: <?php echo $bg_color; ?>;"></div>
+                            <div class="coherence-slider-content" style="text-align: <?php echo $position; ?>; color: <?php echo $text_color; ?>;">
+                                <h2 class="coherence-slider-title"><?php echo $title; ?></h2>
+                                <p class="coherence-slider-subtitle"><?php echo $subtitle; ?></p>
+                                <?php if ( $button_text && $button_link ) : ?>
+                                    <a href="<?php echo $button_link; ?>" class="coherence-slider-btn"><?php echo $button_text; ?></a>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
                 <?php endif; ?>
             </div>
-        </div>
-        <?php
-    }
+            <?php
+        }
+?>
 }
 
 \Elementor\Plugin::instance()->widgets_manager->register( new Coherence_Slider_Widget() );
