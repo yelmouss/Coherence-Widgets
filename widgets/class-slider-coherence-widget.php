@@ -245,7 +245,7 @@ class Coherence_Slider_Widget extends \Elementor\Widget_Base {
         $this->end_controls_section();
     }
 
-    <?php
+
         protected function render() {
             $settings = $this->get_settings_for_display();
             $autoplay = $settings['autoplay'] === 'yes';
@@ -277,10 +277,8 @@ class Coherence_Slider_Widget extends \Elementor\Widget_Base {
                     <?php endforeach; ?>
                 <?php endif; ?>
             </div>
-            <?php
+        <?php
         }
-?>
-}
+    }
 
 \Elementor\Plugin::instance()->widgets_manager->register( new Coherence_Slider_Widget() );
-?>
