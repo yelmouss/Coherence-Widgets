@@ -71,6 +71,7 @@ function register_coherence_widgets( $widgets_manager ) {
         'class-divider-widget.php'          => 'Coherence_Divider_Widget',
         'class-slider-coherence-widget.php' => 'Coherence_Slider_Widget',
         'class-popup-coherence-widget.php'  => 'Coherence_Popup_Widget',
+        'widget-gallery-tabs.php'           => 'Coherence_Gallery_Tabs_Widget',
     );
 
     foreach ( $widgets as $file => $class ) {
@@ -105,6 +106,36 @@ add_action( 'elementor/elements/categories_registered', 'register_coherence_widg
  * Enregistrer les assets frontend
  */
 function coherence_widgets_enqueue_scripts() {
+    // Register Fancybox
+    wp_register_style(
+        'fancybox',
+        'https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css',
+        array(),
+        '5.0.0'
+    );
+    wp_register_script(
+        'fancybox',
+        'https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js',
+        array(),
+        '5.0.0',
+        true
+    );
+
+    // Register Gallery Tabs assets
+    wp_register_style(
+        'coherence-gallery-tabs',
+        COHERENCE_WIDGETS_ASSETS_URL . 'css/gallery-tabs.css',
+        array( 'fancybox' ),
+        COHERENCE_WIDGETS_VERSION
+    );
+    wp_register_script(
+        'coherence-gallery-tabs',
+        COHERENCE_WIDGETS_ASSETS_URL . 'js/gallery-tabs.js',
+        array( 'fancybox' ),
+        COHERENCE_WIDGETS_VERSION,
+        true
+    );
+
     wp_register_script(
         'coherence-before-after',
         COHERENCE_WIDGETS_ASSETS_URL . 'js/before-after.js',
@@ -205,6 +236,36 @@ function coherence_widgets_editor_scripts() {
         COHERENCE_WIDGETS_ASSETS_URL . 'css/coherence-popup.css',
         array(),
         COHERENCE_WIDGETS_VERSION
+    );
+
+    // Enqueue Fancybox assets for editor preview
+    wp_enqueue_style(
+        'fancybox',
+        'https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css',
+        array(),
+        '5.0.0'
+    );
+    wp_enqueue_script(
+        'fancybox',
+        'https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js',
+        array(),
+        '5.0.0',
+        true
+    );
+
+    // Enqueue Gallery Tabs assets for editor preview
+    wp_enqueue_style(
+        'coherence-gallery-tabs',
+        COHERENCE_WIDGETS_ASSETS_URL . 'css/gallery-tabs.css',
+        array( 'fancybox' ),
+        COHERENCE_WIDGETS_VERSION
+    );
+    wp_enqueue_script(
+        'coherence-gallery-tabs',
+        COHERENCE_WIDGETS_ASSETS_URL . 'js/gallery-tabs.js',
+        array( 'fancybox' ),
+        COHERENCE_WIDGETS_VERSION,
+        true
     );
 }
 
